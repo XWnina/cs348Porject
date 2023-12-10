@@ -1,0 +1,37 @@
+<!-- courses.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course List</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Courses Registered for {{ s_id }} </h1>
+    <ul>
+        {% for course_name in course_names %}
+            <li>{{ course_name }}
+                <a href="{{ url_for('delete_course', s_id=s_id, course_name=course_name) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add</h2>
+    <form method="post" action="{{ url_for('add_course', s_id=s_id) }}">
+        Course Name: <input type="text" name="new_course">
+        <input type="submit" value="Add">
+    </form>
+
+    <h2>Search for Class</h2>
+    <form method="post">
+        Please input the course name: <input type="text" name="query_course_name">
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if queried_course %}
+        <div>
+            <h3>{{ queried_course.course_name }}</h3>
+            <p>{{ queried_course.days }} {{ queried_course.time }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>
